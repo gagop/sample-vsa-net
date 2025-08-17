@@ -14,6 +14,30 @@ Ten projekt prezentuje podejście VSA (Vertical Slice Architecture) w środowisk
 - **Struktura**: Główna logika funkcjonalna w `VsaSample/Features/` (np. `Auth`, `Comments`, `Groups`), wspólne elementy w `VsaSample/Shared/`, warstwa danych w `VsaSample/Infrastructure/` (np. `Data`, `Entities`).
 - **Przykładowe funkcje**: logowanie/rejestracja użytkownika (`Auth`), komentarze (`Comments`), grupy użytkowników (`Groups`).
 
+### Struktura repo/projektu
+```
+sample-vsa-net/
+  VsaSample/
+    Features/
+      Auth/
+      Comments/
+      Groups/
+    Infrastructure/
+      Data/
+        Context/ (np. AppDbContext)
+        Entities/
+    Shared/
+      Endpoints/
+      Middlewares/
+      Responses/
+    Program.cs
+```
+
+### Baza danych
+- Domyślnie używany jest **EF Core InMemory Database** (`UseInMemoryDatabase("TestDb")`).
+- Nie wymaga ustawiania connection stringów – uruchomisz projekt bez dodatkowej konfiguracji.
+- Uwaga: provider InMemory nie jest relacyjny (nie wymusza relacyjnych ograniczeń). Jeśli potrzebujesz semantyki relacyjnej w pamięci, rozważ **SQLite In-Memory**.
+
 ### Zalety
 - **Silne powiązanie kodu domenowego** w obrębie jednego wycinka – łatwiejsze zrozumienie, refaktoryzacja i testowanie konkretnych przypadków użycia.
 - **Mniejsza potrzeba globalnych kontraktów** – każdy slice ma własne modele/DTO/handlery.
@@ -54,6 +78,30 @@ This project demonstrates the VSA (Vertical Slice Architecture) approach in .NET
 - **Technology**: .NET (minimal APIs / Web API).
 - **Structure**: Feature logic in `VsaSample/Features/` (e.g., `Auth`, `Comments`, `Groups`), shared pieces in `VsaSample/Shared/`, data and infrastructure under `VsaSample/Infrastructure/` (e.g., `Data`, `Entities`).
 - **Sample features**: user authentication/registration (`Auth`), comments (`Comments`), user groups (`Groups`).
+
+### Repository/project structure
+```
+sample-vsa-net/
+  VsaSample/
+    Features/
+      Auth/
+      Comments/
+      Groups/
+    Infrastructure/
+      Data/
+        Context/ (e.g., AppDbContext)
+        Entities/
+    Shared/
+      Endpoints/
+      Middlewares/
+      Responses/
+    Program.cs
+```
+
+### Database
+- By default the app uses **EF Core InMemory Database** (`UseInMemoryDatabase("TestDb")`).
+- No connection strings are required – you can run the project without extra configuration.
+- Note: the InMemory provider is not relational (it does not enforce relational constraints). If you need relational semantics in-memory, consider **SQLite In-Memory**.
 
 ### Pros
 - **Tight domain focus per slice** – easier to understand, refactor, and test individual use-cases.
