@@ -10,6 +10,13 @@ Ten projekt prezentuje podejście VSA (Vertical Slice Architecture) w środowisk
 - **Wynoszenie współdzielonych elementów**: Gdy pojawia się potrzeba ponownego użycia elementów w wielu miejscach, można je stopniowo wynosić wyżej – np. do katalogu `VsaSample/Shared/` (wspólne `Endpoints`, `Middlewares`, `Responses`) lub do infrastruktury (`VsaSample/Infrastructure/`).
 
 ### Opis projektu
+
+Na potrzeby demonstracji w projekcie znajdziesz dwa podejścia do organizacji slice’ów:
+- `VsaSample/Features/Groups/GetUserGroups.cs` – przykład, w którym w ramach jednego pliku łączymy wszystkie elementy niezbędne do obsługi żądania (definicja endpointu/żądania/obsługi). Nie trzeba przełączać się do innych plików.
+- W tym przypadku `AppDbContext` jest przekazywany bezpośrednio do handlera. W zależności od potrzeb w innych końcówkach możesz użyć różnych podejść do dostępu do danych: repozytoria, surowy SQL, elementy DDD (agregaty).
+- `VsaSample/Features/Comments/Queries/GetComments/` – przykład (nie w pełni ukończony) organizacji „folderowej”, gdzie dla pojedynczego endpointu trzymamy osobne pliki (`GetCommentsEndpoint.cs`, `GetCommentsHandler.cs`, `CommentResponse.cs`). To alternatywa wobec modelu jednoplikowego.
+
+Powyższe to różne przykłady organizacji kodu – wybór zależy od złożoności i preferencji zespołu.
 - **Technologia**: .NET (minimal APIs / Web API).
 - **Struktura**: Główna logika funkcjonalna w `VsaSample/Features/` (np. `Auth`, `Comments`, `Groups`), wspólne elementy w `VsaSample/Shared/`, warstwa danych w `VsaSample/Infrastructure/` (np. `Data`, `Entities`).
 - **Przykładowe funkcje**: logowanie/rejestracja użytkownika (`Auth`), komentarze (`Comments`), grupy użytkowników (`Groups`).
@@ -75,6 +82,13 @@ This project demonstrates the VSA (Vertical Slice Architecture) approach in .NET
 - **Extract reusable pieces upward**: When some parts become widely reused, progressively lift them into shared areas like `VsaSample/Shared/` (common `Endpoints`, `Middlewares`, `Responses`) or infrastructure (`VsaSample/Infrastructure/`).
 
 ### Project overview
+
+This repository showcases two styles of organizing vertical slices:
+- `VsaSample/Features/Groups/GetUserGroups.cs` – a single-file slice that co-locates all parts required for the request (endpoint/request/handler). No need to jump across files.
+- In this case, the `AppDbContext` is passed directly into the handler. Depending on needs, other endpoints can use repositories, raw SQL, or DDD constructs (aggregates) for data access.
+- `VsaSample/Features/Comments/Queries/GetComments/` – a (not fully finished) folder-based example where a single endpoint keeps separate files (`GetCommentsEndpoint.cs`, `GetCommentsHandler.cs`, `CommentResponse.cs`). This is an alternative to the single-file style.
+
+These are complementary options; use whichever best fits the feature’s complexity and team preferences.
 - **Technology**: .NET (minimal APIs / Web API).
 - **Structure**: Feature logic in `VsaSample/Features/` (e.g., `Auth`, `Comments`, `Groups`), shared pieces in `VsaSample/Shared/`, data and infrastructure under `VsaSample/Infrastructure/` (e.g., `Data`, `Entities`).
 - **Sample features**: user authentication/registration (`Auth`), comments (`Comments`), user groups (`Groups`).
